@@ -64,7 +64,6 @@ final readonly class HandlerDecorator implements LaravelExceptionHandler
         $enabled = $this->config->enabled;
 
         // Detect debug flag across versions (Laravel 11+: hasDebugModeEnabled)
-        // @phpstan-ignore-next-line
         if (method_exists($this->app, 'hasDebugModeEnabled')) {
             $debug = $this->app->hasDebugModeEnabled();
         } else {

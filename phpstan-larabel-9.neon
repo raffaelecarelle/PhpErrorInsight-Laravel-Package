@@ -1,0 +1,6 @@
+includes:
+    - phpstan.neon
+
+parameters:
+    ignoreErrors:
+        - message: "#Call to function method_exists\\(\\) with Illuminate\\\\Contracts\\\\Foundation\\\\Application and 'hasDebugModeEnabled' will always evaluate to true.#"
