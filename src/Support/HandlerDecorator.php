@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PhpErrorInsightLaravel\Support;
 
+use ErrorExplainer\Config;
 use ErrorExplainer\Config as InsightConfig;
 use ErrorExplainer\Internal\Explainer as InternalExplainer;
 use ErrorExplainer\Internal\Renderer as InternalRenderer;
@@ -54,8 +55,7 @@ final readonly class HandlerDecorator implements LaravelExceptionHandler
 
     public function renderForConsole($output, Throwable $e): void
     {
-        // Let Laravel render for console to avoid interfering with tooling
-        $this->inner->renderForConsole($output, $e);
+        $this->renderInsightConsole($e);
     }
 
     private function shouldUseInsight(Request $request): bool
@@ -89,27 +89,18 @@ final readonly class HandlerDecorator implements LaravelExceptionHandler
         return $enabled && $debug && $wantsHtml;
     }
 
+    private function renderInsightConsole(Throwable $e)
+    {
+        $exp = $this->buildExp($e);
+        $cfg = $this->buildConfig();
+
+        $this->renderer->render($exp, $cfg, 'exception', false);
+    }
+
     private function renderInsightHtml(Throwable $e): string
     {
-        // Build explanation and render capturing the echo output from the renderer
-        $exp = $this->explainer->explain('exception', $e->getMessage(), $e->getFile(), $e->getLine(), $e->getTrace(), null, $this->config);
-        $exp['state'] = $this->state->collectState($e->getTrace());
-
-        // Force HTML rendering regardless of environment; clone config overriding output
-        $cfg = InsightConfig::fromEnvAndArray([
-            'enabled' => $this->config->enabled,
-            'backend' => $this->config->backend,
-            'model' => $this->config->model,
-            'apiKey' => $this->config->apiKey,
-            'apiUrl' => $this->config->apiUrl,
-            'language' => $this->config->language,
-            'output' => 'html',
-            'verbose' => $this->config->verbose,
-            'template' => $this->config->template,
-            'projectRoot' => $this->config->projectRoot,
-            'hostProjectRoot' => $this->config->hostProjectRoot,
-            'editorUrl' => $this->config->editorUrl,
-        ]);
+        $exp = $this->buildExp($e);
+        $cfg = $this->buildConfig();
 
         ob_start();
         try {
@@ -119,5 +110,37 @@ final readonly class HandlerDecorator implements LaravelExceptionHandler
         }
 
         return $content;
+    }
+
+    /**
+     * @return array<string,mixed>
+     */
+    private function buildExp(Throwable $e): array
+    {
+        // Build explanation and render capturing the echo output from the renderer
+        $exp = $this->explainer->explain('exception', $e->getMessage(), $e->getFile(), $e->getLine(), $e->getTrace(), null, $this->config);
+        $exp['state'] = $this->state->collectState($e->getTrace());
+
+        return $exp;
+    }
+
+    private function buildConfig(): Config
+    {
+        $cfg = InsightConfig::fromEnvAndArray([
+            'enabled' => $this->config->enabled,
+            'backend' => $this->config->backend,
+            'model' => $this->config->model,
+            'apiKey' => $this->config->apiKey,
+            'apiUrl' => $this->config->apiUrl,
+            'language' => $this->config->language,
+            'output' => 'auto',
+            'verbose' => $this->config->verbose,
+            'template' => $this->config->template,
+            'projectRoot' => $this->config->projectRoot,
+            'hostProjectRoot' => $this->config->hostProjectRoot,
+            'editorUrl' => $this->config->editorUrl,
+        ]);
+
+        return $cfg;
     }
 }
