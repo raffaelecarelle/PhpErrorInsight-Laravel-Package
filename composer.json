@@ -20,6 +20,12 @@
         "phpstan/phpstan": "^2.1",
         "orchestra/testbench": "^10.6"
     },
+    "authors": [
+        {
+            "name": "Raffaele Carelle",
+            "email": "raffaele.carelle@gmail.com"
+        }
+    ],
     "autoload": {
         "psr-4": {
             "PhpErrorInsightLaravel\\": "src/"
