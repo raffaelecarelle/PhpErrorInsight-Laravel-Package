@@ -19,7 +19,7 @@ return RectorConfig::configure()
         EncapsedStringsToSprintfRector::class,
     ])
     ->withSets([
-        LevelSetList::UP_TO_PHP_81,
+        LevelSetList::UP_TO_PHP_82,
         SetList::CODE_QUALITY,
         SetList::CODING_STYLE,
         SetList::DEAD_CODE,

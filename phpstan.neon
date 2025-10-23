@@ -16,7 +16,7 @@ parameters:
     ignoreErrors:
         # Add specific ignores here if needed
 
-    phpVersion: 80100 # PHP 8.1
+    phpVersion: 80200 # PHP 8.2
 
     parallel:
         jobSize: 20

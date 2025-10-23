@@ -3,7 +3,7 @@
 Integration package for Laravel that renders PHP Error Insight’s rich HTML error page (with AI-powered details and suggestions) during development.
 
 - Core library: raffaelecarelle/php-error-insight
-- Supports Laravel 8, 9, 10, 11 (requires PHP >= 8.1)
+- Supports Laravel 9, 10, 11, 12 (requires PHP >= 8.2)
 
 ## Installation
 
