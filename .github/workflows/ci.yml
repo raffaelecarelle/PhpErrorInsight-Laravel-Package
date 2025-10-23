@@ -111,7 +111,7 @@ jobs:
         run: vendor/bin/rector --version && vendor/bin/rector process --dry-run --ansi
 
       - name: PHPStan
-        run: vendor/bin/phpstan --version && vendor/bin/phpstan analyse --no-progress --ansi ${{ matrix.laravel == '9.*' && '--configuration=phpstan-larabel-9.neon' || '' }}
+        run: vendor/bin/phpstan --version && vendor/bin/phpstan analyse --no-progress --ansi ${{ matrix.laravel != '9.*' && '--configuration=phpstan-lara-1*.neon' || '' }}
 
       - name: PHPUnit
         run: |
