@@ -1,0 +1,25 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Call to function method_exists\(\) with Illuminate\\Contracts\\Debug\\ExceptionHandler and ''shouldReport'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: src/Support/HandlerDecorator.php
+
+		-
+			message: '#^Call to function method_exists\(\) with Illuminate\\Http\\Request and ''acceptsHtml'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: src/Support/HandlerDecorator.php
+
+		-
+			message: '#^Call to function method_exists\(\) with Illuminate\\Http\\Request and ''expectsJson'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: src/Support/HandlerDecorator.php
+
+		-
+			message: '#^Parameter \#1 \$output of method PhpErrorInsightLaravel\\Support\\HandlerDecorator\:\:renderForConsole\(\) expects Symfony\\Component\\Console\\Output\\OutputInterface, resource\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/HandlerDecoratorTest.php
