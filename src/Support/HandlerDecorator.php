@@ -14,15 +14,15 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
-final class HandlerDecorator implements LaravelExceptionHandler
+final readonly class HandlerDecorator implements LaravelExceptionHandler
 {
     public function __construct(
-        private readonly LaravelExceptionHandler $inner,
-        private readonly Application $app,
-        private readonly InsightConfig $config,
-        private readonly InternalExplainer $explainer,
-        private readonly InternalRenderer $renderer,
-        private readonly InternalStateDumper $state
+        private LaravelExceptionHandler $inner,
+        private Application $app,
+        private InsightConfig $config,
+        private InternalExplainer $explainer,
+        private InternalRenderer $renderer,
+        private InternalStateDumper $state
     ) {
     }
 
