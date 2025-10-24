@@ -17,9 +17,3 @@ parameters:
 			identifier: function.alreadyNarrowedType
 			count: 1
 			path: src/Support/HandlerDecorator.php
-
-		-
-			message: '#^Parameter \#1 \$output of method PhpErrorInsightLaravel\\Support\\HandlerDecorator\:\:renderForConsole\(\) expects Symfony\\Component\\Console\\Output\\OutputInterface, resource\|false given\.$#'
-			identifier: argument.type
-			count: 1
-			path: tests/HandlerDecoratorTest.php
