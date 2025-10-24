@@ -45,7 +45,15 @@ final readonly class HandlerDecorator implements LaravelExceptionHandler
     {
         // Try to use our viewer only for HTML web requests when enabled and app is in debug.
         if ($this->shouldUseInsight($request)) {
-            $content = $this->renderInsightHtml($e);
+            $exp = $this->buildExp($e);
+            $cfg = $this->buildConfig();
+
+            ob_start();
+            try {
+                $this->renderer->render($exp, $cfg, 'exception', false);
+            } finally {
+                $content = (string) ob_get_clean();
+            }
 
             return new Response($content, 500, ['Content-Type' => 'text/html; charset=utf-8']);
         }
@@ -55,7 +63,10 @@ final readonly class HandlerDecorator implements LaravelExceptionHandler
 
     public function renderForConsole($output, Throwable $e): void
     {
-        $this->renderInsightConsole($e);
+        $exp = $this->buildExp($e);
+        $cfg = $this->buildConfig();
+
+        $this->renderer->render($exp, $cfg, 'exception', false);
     }
 
     private function shouldUseInsight(Request $request): bool
@@ -89,29 +100,6 @@ final readonly class HandlerDecorator implements LaravelExceptionHandler
         return $enabled && $debug && $wantsHtml;
     }
 
-    private function renderInsightConsole(Throwable $e)
-    {
-        $exp = $this->buildExp($e);
-        $cfg = $this->buildConfig();
-
-        $this->renderer->render($exp, $cfg, 'exception', false);
-    }
-
-    private function renderInsightHtml(Throwable $e): string
-    {
-        $exp = $this->buildExp($e);
-        $cfg = $this->buildConfig();
-
-        ob_start();
-        try {
-            $this->renderer->render($exp, $cfg, 'exception', false);
-        } finally {
-            $content = (string) ob_get_clean();
-        }
-
-        return $content;
-    }
-
     /**
      * @return array<string,mixed>
      */
@@ -126,7 +114,7 @@ final readonly class HandlerDecorator implements LaravelExceptionHandler
 
     private function buildConfig(): Config
     {
-        $cfg = InsightConfig::fromEnvAndArray([
+        return InsightConfig::fromEnvAndArray([
             'enabled' => $this->config->enabled,
             'backend' => $this->config->backend,
             'model' => $this->config->model,
@@ -140,7 +128,5 @@ final readonly class HandlerDecorator implements LaravelExceptionHandler
             'hostProjectRoot' => $this->config->hostProjectRoot,
             'editorUrl' => $this->config->editorUrl,
         ]);
-
-        return $cfg;
     }
 }
