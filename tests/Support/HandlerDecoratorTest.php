@@ -70,7 +70,7 @@ class HandlerDecoratorTest extends BaseTestCase
 
         $content = $response->getContent();
         $this->assertNotEmpty($content);
-        $this->assertStringContainsString('Test exception for HTML rendering', $content);
+        $this->assertStringContainsString('🚨 Test exception for HTML rendering', $content);
     }
 
     public function testRenderDelegatesToLaravelHandlerWhenDebugDisabled(): void
