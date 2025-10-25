@@ -9,7 +9,7 @@
         "illuminate/support": "^9.0|^10.0|^11.0|^12.0",
         "illuminate/contracts": "^9.0|^10.0|^11.0|^12.0",
         "symfony/http-foundation": "^5.4|^6.0|^7.0",
-        "raffaelecarelle/php-error-insight": "*"
+        "raffaelecarelle/php-error-insight": "^1.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^12.4",

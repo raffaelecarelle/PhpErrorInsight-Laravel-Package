@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace PhpErrorInsightLaravel\Support;
 
-use ErrorExplainer\Config;
-use ErrorExplainer\Config as InsightConfig;
-use ErrorExplainer\Internal\Explainer as InternalExplainer;
-use ErrorExplainer\Internal\Renderer as InternalRenderer;
-use ErrorExplainer\Internal\StateDumper as InternalStateDumper;
 use Illuminate\Contracts\Debug\ExceptionHandler as LaravelExceptionHandler;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\Request;
+use PhpErrorInsight\Config;
+use PhpErrorInsight\Config as InsightConfig;
+use PhpErrorInsight\Internal\Explainer as InternalExplainer;
+use PhpErrorInsight\Internal\Renderer as InternalRenderer;
+use PhpErrorInsight\Internal\StateDumper as InternalStateDumper;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
