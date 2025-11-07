@@ -70,7 +70,7 @@ class HandlerDecoratorTest extends BaseTestCase
 
         $content = $response->getContent();
         $this->assertNotEmpty($content);
-        $this->assertStringContainsString('🚨 Test exception for HTML rendering', $content);
+        $this->assertStringContainsString('Test exception for HTML rendering', $content);
     }
 
     public function testRenderDelegatesToLaravelHandlerWhenDebugDisabled(): void
@@ -250,7 +250,7 @@ class HandlerDecoratorTest extends BaseTestCase
     public function testRenderHandlesExceptionsThrownInDifferentFiles(): void
     {
         config(['app.debug' => true]);
-        config(['error-insight.enabled' => true]);
+        config(['php-error-insight.enabled' => true]);
 
         $request = Request::create('/test', 'GET');
         $request->headers->set('Accept', 'text/html');

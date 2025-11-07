@@ -10,8 +10,8 @@ use Illuminate\Http\Request;
 use PhpErrorInsight\Config;
 use PhpErrorInsight\Config as InsightConfig;
 use PhpErrorInsight\Internal\Explainer as InternalExplainer;
+use PhpErrorInsight\Internal\Model\Explanation;
 use PhpErrorInsight\Internal\Renderer as InternalRenderer;
-use PhpErrorInsight\Internal\StateDumper as InternalStateDumper;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
@@ -22,8 +22,7 @@ final readonly class HandlerDecorator implements LaravelExceptionHandler
         private Application $app,
         private InsightConfig $config,
         private InternalExplainer $explainer,
-        private InternalRenderer $renderer,
-        private InternalStateDumper $state
+        private InternalRenderer $renderer
     ) {
     }
 
@@ -100,16 +99,10 @@ final readonly class HandlerDecorator implements LaravelExceptionHandler
         return $enabled && $debug && $wantsHtml;
     }
 
-    /**
-     * @return array<string,mixed>
-     */
-    private function buildExp(Throwable $e): array
+    private function buildExp(Throwable $e): Explanation
     {
         // Build explanation and render capturing the echo output from the renderer
-        $exp = $this->explainer->explain('exception', $e->getMessage(), $e->getFile(), $e->getLine(), $e->getTrace(), null, $this->config);
-        $exp['state'] = $this->state->collectState($e->getTrace());
-
-        return $exp;
+        return $this->explainer->explain('exception', $e->getMessage(), $e->getFile(), $e->getLine(), $e->getTrace(), null, $this->config, $e::class);
     }
 
     private function buildConfig(): Config

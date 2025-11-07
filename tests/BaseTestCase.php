@@ -36,7 +36,7 @@ abstract class BaseTestCase extends TestCase
         $app['config']->set('app.env', 'testing');
         $app['config']->set('app.debug', true);
         $app['config']->set('php-error-insight.enabled', true);
-        $app['config']->set('php-error-insight.backend', null);
+        $app['config']->set('php-error-insight.backend', 'none');
         $app['config']->set('php-error-insight.model', null);
         $app['config']->set('php-error-insight.apiKey', null);
         $app['config']->set('php-error-insight.apiUrl', null);

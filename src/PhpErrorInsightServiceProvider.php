@@ -10,7 +10,6 @@ use Illuminate\Support\ServiceProvider;
 use PhpErrorInsight\Config as InsightConfig;
 use PhpErrorInsight\Internal\Explainer as InternalExplainer;
 use PhpErrorInsight\Internal\Renderer as InternalRenderer;
-use PhpErrorInsight\Internal\StateDumper as InternalStateDumper;
 
 final class PhpErrorInsightServiceProvider extends ServiceProvider
 {
@@ -26,7 +25,7 @@ final class PhpErrorInsightServiceProvider extends ServiceProvider
         });
 
         // Decorate the Laravel exception handler to render our HTML when appropriate
-        $this->app->extend(LaravelExceptionHandler::class, fn ($handler, Application $app): Support\HandlerDecorator => new Support\HandlerDecorator($handler, $app, $app->make(InsightConfig::class), new InternalExplainer(), new InternalRenderer(), new InternalStateDumper()));
+        $this->app->extend(LaravelExceptionHandler::class, fn ($handler, Application $app): Support\HandlerDecorator => new Support\HandlerDecorator($handler, $app, $app->make(InsightConfig::class), new InternalExplainer(), new InternalRenderer()));
     }
 
     public function boot(): void
