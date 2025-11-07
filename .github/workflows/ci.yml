@@ -122,7 +122,7 @@ jobs:
         name: Create Release
         runs-on: ubuntu-latest
         if: startsWith(github.ref, 'refs/tags/')
-        needs: [ tests ]
+        needs: [ quality-and-tests ]
         permissions:
             contents: write
         steps:
