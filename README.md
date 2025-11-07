@@ -5,6 +5,12 @@ Integration package for Laravel that renders PHP Error Insight’s rich HTML err
 - Core library: raffaelecarelle/php-error-insight
 - Supports Laravel 9, 10, 11, 12 (requires PHP >= 8.2)
 
+Screenshots:
+
+![screenview1.png](resources/img/readme/screenview1.png)
+![screenview2.png](resources/img/readme/screenview2.png)
+![terminal.png](resources/img/readme/terminal.png)
+
 ## Installation
 
 ```bash
