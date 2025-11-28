@@ -65,5 +65,12 @@
             "@clear",
             "@php vendor/bin/phpunit"
         ]
+    },
+    "config": {
+        "audit": {
+            "ignore": [
+                "PKSA-8qx3-n5y5-vvnd"
+            ]
+        }
     }
 }
