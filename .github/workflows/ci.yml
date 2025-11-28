@@ -14,7 +14,7 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                php: [ '8.2', '8.3', '8.4' ]
+                php: [ '8.2', '8.3', '8.4', '8.5' ]
                 laravel: [ '9.*', '10.*', '11.*', '12.*' ]
                 include:
                     # PHP >= 8.2 can use current dev constraints
@@ -66,6 +66,10 @@ jobs:
                         laravel: '12.*'
                         testbench: '^10.0'
                         phpunit: '^11.5'
+                    -   php: '8.5'
+                        laravel: '12.*'
+                        testbench: '^10.0'
+                        phpunit: '^12.5'
         steps:
             -   name: Checkout repository
                 uses: actions/checkout@v4
